@@ -1,0 +1,16 @@
+{
+  "name": "smart-fridge",
+  "version": "0.0.1",
+  "description": "For use with the smart fridge development",
+  "main": "server.js",
+  "repository": "",
+  "author": "Zachary,Danny,Fulton,Jonathan",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "clarifai": "^2.1.3-dev",
+    "express": "~3.2.4",
+    "multer": "^1.3.0",
+    "socket.io": "^1.7.3",
+    "twilio": "^2.11.1"
+  }
+}

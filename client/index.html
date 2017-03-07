@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" ng-app>
+
+<head>
+  <title>Fridg.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="/css/bulma/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+
+<body>
+  <div class="container is-fluid">
+    <section class="hero is-fullheight">
+      <div class="columns has-text-centered is-multiline is-gapless">
+        <div class="column is-12">
+          <span="notification is-info" id="clock"></span>
+        </div>
+        <div class="column is-12">
+          <p span="notification is-info " id="temp">Feb. 26th 2017</span>
+            <a onclick="annyang.start({autoRestart: false, continuous: false});"><i class="fa fa-microphone"></i></a>
+        </div>
+      </div>
+      <div class="modal" id="recipeModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title" id="recipeTitle"></p>
+            <button class="delete" onclick="toggleRecipeModal(null)"></button>
+          </header>
+          <section class="modal-card-body">
+            <div class="columns" style="margin-bottom:0;">
+              <!-- row for image -->
+              <div class="column is-6 is-offset-3">
+                <figure class="image is-4by3">
+                  <img id="recipeImage" src="http://bulma.io/images/placeholders/640x360.png">
+                </figure>
+              </div>
+            </div>
+            <br>
+            <div class="columns">
+              <!-- row for info under image -->
+              <div class="column is-2">
+              </div>
+              <div class="column has-text-centered">
+                <div class="columns">
+                  <div class="column">
+                    <p class="greenish">Healthy:</p><p id="healthyReport"></p>
+                  </div>
+                  <div class="column has-text-centered">
+                    <p class="greenish">Cook time:</p><p id="recipeReadyTime"></p>
+                  </div>
+                  <div class="column">
+                    <p class="greenish">Send to phone:</p><a><span class="icon"><i class="fa fa-mobile"></i></span></a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2">
+              </div>
+            </div>
+            <br>
+            <div class="columns">
+              <!-- row for ingredients title -->
+              <div class="column">
+                <u class="greenish">Ingredients:</u>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-6" id="ingredient-left-column">
+              </div>
+              <div class="column is-6" id="ingredient-right-column">
+              </div>
+            </div>
+            <br>
+            <div class="columns">
+              <!-- row for Directions title -->
+              <div class="column">
+                <u class="greenish">Directions:</u>
+              </div>
+            </div>
+            <div class="columns">
+              <!-- row for first direction -->
+              <div class="column is-12" id="recipeDirections">
+              </div>
+            </div>
+            <!-- for graphs -->
+            <div class="columns">
+              <div class="column">
+                <u class="greenish">Quick View:</u>
+              </div>
+            </div>
+            <div class="columns" id="graphDiv">
+              <div id="hiddenGraph">
+              </div>
+              <div class="column">
+                <span id="nutritionInfo"></span>
+              </div>
+            </div>
+            <br>
+          </section>
+          <footer class="modal-card-foot">
+            <!--<a class="button is-success">I made it!</a>-->
+            <a class="button" onclick="toggleRecipeModal(null)">Close</a>
+          </footer>
+        </div>
+      </div>
+      <div class="tile is-ancestor ">
+        <div class="tile is-vertical is-8">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child box">
+                <div class="content">
+                  <p class="title">Fridg.io Coversation</p>
+                  <p class="subtitle">Your chat history with your fridge.</p>
+                  <div class="content" id="leftRecipes">
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child box">
+                <p class="title">Temperatures</p>
+                <p class="subtitle">Currently</p>
+                <div class="columns">
+                  <div class="column">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-3by2">
+                          <img src="img/cold.jpg" alt="Image">
+                        </figure>
+                      </div>
+                      <div class="card-content" id="internalweathercontent">
+                        <div class="media">
+                          <div class="media-content">
+                            <p class="title has-text-centered is-4">Refrigerator</p>
+                          </div>
+                        </div>
+                        <div class="content">
+                          <div id="weather" class="content has-text-centered">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-3by2">
+                          <img src="img/sunny.jpg" alt="Image">
+                        </figure>
+                      </div>
+                      <div class="card-content" id="externalweathercontent">
+                        <div class="media">
+                          <div class="media-content">
+                            <p class="title has-text-centered is-4">Outside</p>
+                          </div>
+                        </div>
+                        <div class="content">
+                          <div id="weatheroutside" class="content has-text-centered">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="tile is-child box">
+                <div class="content">
+                  <p class="title">Calendar</p>
+                  <div class="content">
+                    <table class="table is-striped">
+                      <thead>
+                        <tr>
+                          <th>SUN</th>
+                          <th>MON</th>
+                          <th>TUE</th>
+                          <th>WED</th>
+                          <th>THU</th>
+                          <th>FRI</th>
+                          <th>SAT</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>29</td>
+                          <td>30</td>
+                          <td>31</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>3</td>
+                          <td>4</td>
+                        </tr>
+                        <tr>
+                          <td>5</td>
+                          <td>6</td>
+                          <td>7</td>
+                          <td>8</td>
+                          <td>9</td>
+                          <td>10</td>
+                          <td>11</td>
+                        </tr>
+                        <tr>
+                          <td>12</td>
+                          <td>13</td>
+                          <td>14</td>
+                          <td>15</td>
+                          <td>16</td>
+                          <td>17</td>
+                          <td>18</td>
+                        </tr>
+                        <tr>
+                          <td>19</td>
+                          <td>20</td>
+                          <td>21</td>
+                          <td>22</td>
+                          <td>23</td>
+                          <td>24</td>
+                          <td>25</td>
+                        </tr>
+                        <tr>
+                          <td class="currentDay">26</td>
+                          <td>27</td>
+                          <td>28</td>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>3</td>
+                          <td>4</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box">
+            <div class="content">
+              <p class="title">Suggested Recipes</p>
+              <p id="ingredients" class="subtitle">With even more stuff if ya buy.</p>
+              <div class="content" id="rightRecipes">
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+
+</html>

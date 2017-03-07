@@ -1,0 +1,85 @@
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+.hero {
+    padding-bottom: 2vh; 
+    
+}
+#clock{
+    font-size: xx-large;
+}
+#temp{
+    font-size: large;
+}
+
+.tile.is-parent{
+    padding:0!important;
+}
+.tile.is-vertical > .tile.is-child:not(:last-child) {
+    margin-bottom: 0!important;
+}
+
+#leftRecipes{
+    height: 70vh!important;
+    overflow-y:auto;
+}
+#rightRecipes{
+    height: 70vh!important;
+    overflow-y:auto;
+}
+
+.fa{
+    display:inline!important;
+}
+.noOverflow{
+    overflow:hidden;
+}
+
+#hiddenGraph{
+    display:none;
+}
+
+#externalweathercontent{
+    padding-top:1em;
+}
+#internalweathercontent{
+    padding-top:1em;
+}
+.currentDay{
+    background-color:#85D2DA;
+    /*border-radius: 100%;*/
+}
+.thead{
+    background-color:red!important;
+}
+.your-question{
+    padding-top: 1.25rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.25rem;
+    padding-left: 2.5rem;;
+}
+
+.your-question .delete {
+    position: absolute;
+    right: 0em!important;
+    left: 0.5em;
+    top: 0.5em;
+}
+.greenish{
+    color:#00d1b2;
+}
+a{
+    color:black;
+}
+
+a :hover{
+    color:gray;
+}
+
+thead{
+    background-color: #027E7C;
+}
+thead :hover{
+    background-color: rgba(2,126,124,.5)
+}
